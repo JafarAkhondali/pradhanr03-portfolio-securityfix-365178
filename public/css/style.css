@@ -4732,6 +4732,52 @@ canvas {
   cursor: pointer;
 }
 
+/* profile pic d3 animation start */
+
+#circle_01 {
+	fill: white;
+	fill-opacity: 0;
+	stroke-width: 2;
+}
+#circle_02 {
+	fill: white;
+	fill-opacity: 0;
+	stroke-width: 2;
+}
+#spoke_01 {
+	fill: #210303e0;
+	stroke: #602;
+	stroke-width: 2;
+	stroke-linecap: round;
+}
+#spoke_02 {
+	fill: #210303e0;
+	stroke: #602;
+	stroke-width: 2;
+	stroke-linecap: round;
+}
+
+.d3-pic {
+  position: relative;
+  width: 550px;
+  height: 555px;
+}
+
+.d3-pic:hover {
+  cursor: pointer;
+}
+
+.profile-pic {
+  position: absolute;
+  top: 0;
+}
+
+#profile-d3 {
+  position: absolute;
+  top: 0;
+}
+/* profile d3 animation end */
+
 /* All Mobile Sizes (devices and browser) */
 	@media only screen and (max-width: 767px) {
 		p{text-align: center;}

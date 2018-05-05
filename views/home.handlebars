@@ -490,12 +490,13 @@
 
         <div class="row">
 
-            <div class="col-sm-6 pull-right wow fadeInRightBig">
-                <div style="width:555px;height:430px;">
-                    <div id="loading">
-                        <h5>Loading...</h5>
+            <div class="hidden-xs col-sm-6 pull-right wow fadeInRightBig">
+                <div class="d3-pic">
+                    <div id="profile-pic">
+                        <img class="img-responsive" src="img/profile.png" alt="Owl Image">
                     </div>
-                    <div id="container-helix"></div>
+                    <div id="profile-d3">
+                    </div>
                 </div>
 
             </div>
@@ -506,7 +507,7 @@
                     <br>
                     <p class="lead">
                         I'm a Full Stack Developer from New York, New York. I love to code and tackle challenging problems resulting in beautiful functional websites. My current weapons of choice are JavaScript, JQuery, Node.js, ReactJS, ExpressJS, Backbone.js, AngularJS, postgreSQL,
-                        Ruby on Rails, sendGrid API, Bootstrap, CSS3, HTML5, Ajax and many more <span class="glyphicon glyphicon-hand-right"></span>.
+                        Ruby on Rails, sendGrid API, Bootstrap, CSS3, HTML5, Ajax and many more like the d3 animation on the top of the page or on the right in desktop view <span class="glyphicon glyphicon-hand-right"></span>.
                     </p>
                     <p> If you think my <a href="#credits">projects</a> are cool and want to work with me or just say "Hey Ruby, what's up?" for no reason what so ever, send me an <a href="#contact">email</a>.
                     </p>
@@ -526,7 +527,7 @@
                 <div class="col-sm-6 wow fadeInLeftBig">
                     <a href="img/ruby.jpg" class="image-link">
                         <div class="item">
-                            <img class="img-responsive img-rounded" src="img/ruby.jpg" alt="">
+                            <img class="img-responsive img-rounded" src="img/ruby.jpg" alt="" style="margin:0 auto;">
                         </div>
                     </a>
                 </div>
@@ -1219,14 +1220,36 @@
     <script src="lib/CSS3DRenderer.js"></script>
     <script src="lib/TrackballControls.js"></script>
     <script src="lib/d3.min.js"></script>
-    <script src="js/viz.js"></script>
+    {{!-- <script src="js/viz.js"></script> --}}
     <script>
-        d3.json("data/investments.json", function(error, data) {
-            VIZ.drawElements(data);
-            VIZ.transform('helix');
-            d3.select("#loading").remove();
-            VIZ.render();
-            VIZ.animate();
-            window.addEventListener('resize', VIZ.onWindowResize, false);
-        });
+        var w = 550,  h = 500 , r = 150;
+        
+        var svg = d3.select("#profile-d3").append("svg")
+            .attr({width: w, height: h})
+            .on("mousemove", follow_mouse);
+            
+        var g0 = svg.append("g").attr("id", "g0")
+            .attr("transform", "translate(" + [345, 270] + ")");
+
+        var g1 = svg.append("g").attr("id", "g1")
+            .attr("transform", "translate(" + [225, 276] + ")");
+            
+        var spoke_01 = g0.append("path") .attr("id", "spoke_01")
+            .attr("d", "M 2, 2 m -5, 0 a 5,5 0 1,0 15,0 a 5,5 0 1,0 -15,0");
+
+        var spoke_02 = g1.append("path") .attr("id", "spoke_02")
+            .attr("d", "M 2, 2 m -5, 0 a 5,5 0 1,0 15,0 a 5,5 0 1,0 -15,0");
+            
+        var circle_01 = g0.append("circle").attr("id", "circle_01")
+            .attr("r", r);
+
+        var circle_02 = g1.append("circle").attr("id", "circle_02")
+            .attr("r", r);
+            
+        function follow_mouse() {
+            var xy = d3.mouse(circle_01.node());
+            var angle = (180/Math.PI * Math.atan2(xy[1], xy[0]));
+            d3.select("#spoke_01").attr("transform", "rotate(" + angle + ")");
+            d3.select("#spoke_02").attr("transform", "rotate(" + angle + ")");
+        }
     </script>
